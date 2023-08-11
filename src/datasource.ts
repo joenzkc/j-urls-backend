@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
+import { join } from "path";
 
 export default class Database {
   public static AppDataSource: DataSource;
@@ -20,7 +21,7 @@ export default class Database {
       synchronize: process.env.NODE_ENV === "local" ? true : false,
       // synchronize: false,
       logging: false,
-      entities: ["entity/*.entity.ts"],
+      entities: [join(__dirname, "/../**/**.entity{.ts,.js}")],
       namingStrategy: new SnakeNamingStrategy(),
     };
 
