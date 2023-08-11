@@ -90,6 +90,11 @@ class JurlController {
       ctx.body = jurl;
     });
   }
+
+  public async getAllHashedUrls(ctx: Context) {
+    const urls = await this.jurlService.getAllHashedUrls();
+    ctx.body = urls;
+  }
 }
 
 export default new JurlController();

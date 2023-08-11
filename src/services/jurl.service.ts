@@ -150,4 +150,17 @@ export class JurlService {
     jurl.isActive = false;
     await jurlRepo.save(jurl);
   }
+
+  public async getAllHashedUrls(
+    manager: EntityManager = Database.AppDataSource.manager
+  ) {
+    const jurlRepo = manager.getRepository(Jurl);
+    const jurls = await jurlRepo.find({
+      where: {
+        isActive: true,
+      },
+    });
+
+    return jurls;
+  }
 }
