@@ -16,6 +16,22 @@ export class JurlService {
       hash = randomBytes(3).toString("hex");
     }
 
+    let standardizedUrl = url;
+    if (!url.startsWith("https://")) {
+      standardizedUrl = "https://" + url;
+    }
+
+    const alreadyExists = await jurlRepo.findOne({
+      where: {
+        url: standardizedUrl,
+        user: null,
+      },
+    });
+
+    if (alreadyExists) {
+      return alreadyExists;
+    }
+
     const jurl = jurlRepo.create({
       url,
       hashUrl: hash,

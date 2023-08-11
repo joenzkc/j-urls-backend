@@ -6,8 +6,6 @@ import router from "./routes";
 import bodyParser from "koa-bodyparser";
 import { errorHandler } from "./middleware/errorHandler.middleware";
 import cors from "@koa/cors";
-import jwt from "koa-jwt";
-// import errorHandler from "./middlewares/errorHandler";
 
 config();
 
