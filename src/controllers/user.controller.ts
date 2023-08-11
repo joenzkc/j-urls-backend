@@ -14,7 +14,6 @@ class UserController {
       ctx.status = 400;
       return;
     }
-
     const user = await this.userService.createUser(dto.username, dto.password);
     ctx.body = user;
   }

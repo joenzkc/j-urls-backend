@@ -15,8 +15,8 @@ class AuthController {
       return;
     }
 
-    const validLogin = await this.authService.login(dto.username, dto.password);
-    ctx.body = { validLogin };
+    const token = await this.authService.login(dto.username, dto.password);
+    ctx.body = { token };
   }
 }
 

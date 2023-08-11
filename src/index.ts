@@ -6,6 +6,7 @@ import router from "./routes";
 import bodyParser from "koa-bodyparser";
 import { errorHandler } from "./middleware/errorHandler.middleware";
 import cors from "@koa/cors";
+import jwt from "koa-jwt";
 // import errorHandler from "./middlewares/errorHandler";
 
 config();
@@ -24,6 +25,11 @@ class Server {
       })
     );
     app.use(errorHandler);
+    // app.use(
+    //   jwt({ secret: process.env.JWT_SECRET }).unless({
+    //     path: [/^\/auth\/login/],
+    //   })
+    // );
     app.use(cors());
     app.use(router.routes()).use(router.allowedMethods());
     app.listen(process.env.PORT || 5000);
