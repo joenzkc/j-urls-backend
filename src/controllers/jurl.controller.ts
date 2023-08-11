@@ -9,7 +9,7 @@ import { getUserIdFromCtx } from "../utils/utils";
 class JurlController {
   private jurlService: JurlService = new JurlService();
 
-  public async createAnonymousJurl(ctx: Context) {
+  public async createAnonymousUrl(ctx: Context) {
     const dto = plainToClass(CreateJurlDto, ctx.request.body);
     const errors = await validate(dto);
     if (errors.length > 0) {
@@ -24,7 +24,7 @@ class JurlController {
     });
   }
 
-  public async createJurl(ctx: Context) {
+  public async createUrl(ctx: Context) {
     const dto = plainToClass(CreateJurlDto, ctx.request.body);
     const errors = await validate(dto);
     if (errors.length > 0) {
@@ -43,6 +43,29 @@ class JurlController {
     const jurl = ctx.params.jurl;
     const actualUrl = await this.jurlService.getActualUrl(jurl);
     ctx.body = actualUrl;
+  }
+
+  public async createCustomUrl(ctx: Context) {
+    const dto = plainToClass(CreateJurlDto, ctx.request.body);
+    const errors = await validate(dto);
+
+    if (errors.length > 0) {
+      ctx.status = 400;
+      ctx.body = errors;
+      return;
+    }
+
+    const userId = getUserIdFromCtx(ctx);
+
+    await Database.AppDataSource.manager.transaction(async (manager) => {
+      const jurl = await this.jurlService.createCustomUrl(
+        userId,
+        dto.url,
+        dto.customUrl,
+        manager
+      );
+      ctx.body = jurl;
+    });
   }
 }
 

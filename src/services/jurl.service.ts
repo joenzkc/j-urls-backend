@@ -3,6 +3,7 @@ import Database from "../datasource";
 import { Jurl } from "../entities/jurl.entity";
 import { EntityManager } from "typeorm";
 import { User } from "../entities/user.entity";
+import ApiError from "../errors/api.error";
 
 export class JurlService {
   public async createAnonymousJurl(
@@ -69,6 +70,42 @@ export class JurlService {
 
     if (alreadyExists) {
       return alreadyExists;
+    }
+
+    const jurl = jurlRepo.create({
+      url: standardizedUrl,
+      hashUrl: hash,
+      user,
+    });
+
+    return await jurlRepo.save(jurl);
+  }
+
+  public async createCustomUrl(
+    userId: string,
+    url: string,
+    customUrl: string,
+    manager: EntityManager = Database.AppDataSource.manager
+  ) {
+    const jurlRepo = manager.getRepository(Jurl);
+    const userRepo = manager.getRepository(User);
+    let hash = customUrl;
+
+    const user = await userRepo.findOneOrFail({ where: { id: userId } });
+
+    let standardizedUrl = url;
+    if (!url.startsWith("https://")) {
+      standardizedUrl = "https://" + url;
+    }
+
+    const alreadyExists = await jurlRepo.findOne({
+      where: {
+        hashUrl: hash,
+      },
+    });
+
+    if (alreadyExists) {
+      throw new ApiError("Custom URL already exists", 400);
     }
 
     const jurl = jurlRepo.create({

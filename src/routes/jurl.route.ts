@@ -7,15 +7,19 @@ config();
 const router = new Router();
 
 router.post("/createAnon", async (ctx) => {
-  await jurlController.createAnonymousJurl(ctx);
+  await jurlController.createAnonymousUrl(ctx);
 });
 
 router.post(
   "/create",
   jwt({ secret: process.env.ACCESS_TOKEN_SECRET }),
   async (ctx) => {
-    await jurlController.createJurl(ctx);
+    await jurlController.createUrl(ctx);
   }
 );
+
+router.post("/createCustomUrl", async (ctx) => {
+  await jurlController.createCustomUrl(ctx);
+});
 
 export default router.routes();
