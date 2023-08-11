@@ -18,7 +18,7 @@ class AuthService {
 
     const valid = await compare(password, user.password);
     if (valid) {
-      const token = jwt.sign(username, process.env.ACCESS_TOKEN_SECRET);
+      const token = jwt.sign(user.id, process.env.ACCESS_TOKEN_SECRET);
       return token;
     } else {
       throw new ApiError("Invalid username or password", http.UNAUTHORIZED);
