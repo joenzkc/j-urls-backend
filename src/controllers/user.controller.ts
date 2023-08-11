@@ -1,4 +1,4 @@
-import { validate } from "class-validator";
+import { validate, validateOrReject } from "class-validator";
 import { Context } from "koa";
 import UserService from "../services/user.service";
 import { LoginDto } from "../dtos/login.dto";
@@ -10,12 +10,7 @@ class UserController {
 
   public async createUser(ctx: Context) {
     const dto = plainToClass(LoginDto, ctx.request.body);
-    const errors = await validate(dto);
-    if (errors.length > 0) {
-      ctx.body = errors;
-      ctx.status = 400;
-      return;
-    }
+    await validateOrReject(dto);
     const user = await this.userService.createUser(dto.username, dto.password);
     ctx.body = user;
   }

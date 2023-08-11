@@ -1,4 +1,4 @@
-import { IsDefined, IsString } from "class-validator";
+import { IsDefined, IsNotEmpty, IsString, Length } from "class-validator";
 
 export class LoginDto {
   @IsDefined()
@@ -6,6 +6,8 @@ export class LoginDto {
   public username: string;
 
   @IsDefined()
+  @IsNotEmpty()
+  @Length(8, 20)
   @IsString()
   public password: string;
 }
