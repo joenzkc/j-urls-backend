@@ -41,7 +41,7 @@ class JurlController {
   }
 
   public async getActualUrl(ctx: Context) {
-    const jurl = ctx.params.jurl;
+    const jurl = ctx.params.hashUrl;
     const actualUrl = await this.jurlService.getActualUrl(jurl);
     ctx.body = actualUrl;
   }

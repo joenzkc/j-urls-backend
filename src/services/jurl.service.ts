@@ -122,7 +122,7 @@ export class JurlService {
     manager = Database.AppDataSource.manager
   ) {
     const jurlRepo = manager.getRepository(Jurl);
-    const jurl = await jurlRepo.findOne({
+    const jurl = await jurlRepo.findOneOrFail({
       where: {
         hashUrl,
       },
