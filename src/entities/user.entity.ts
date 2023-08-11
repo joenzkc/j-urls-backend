@@ -1,9 +1,11 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { Jurl } from "./jurl.entity";
 
@@ -18,6 +20,12 @@ export class User {
 
   @Column()
   password: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updateAt: Date;
 
   @OneToMany(() => Jurl, (jurl) => jurl.user)
   urls: Jurl[];
