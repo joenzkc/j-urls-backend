@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import ApiError from "../errors/api.error";
 import http from "http-status-codes";
 import moment from "moment";
+import { errors } from "../errors/errors";
 // import jwt from "koa-jwt";
 
 class AuthService {
@@ -30,7 +31,11 @@ class AuthService {
       );
       return token;
     } else {
-      throw new ApiError("Invalid username or password", http.UNAUTHORIZED);
+      throw new ApiError(
+        "Invalid username or password",
+        http.UNAUTHORIZED,
+        errors.INVALID_USERNAME_OR_PASSWORD
+      );
     }
   }
 }

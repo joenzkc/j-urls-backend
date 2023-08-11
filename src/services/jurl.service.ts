@@ -4,6 +4,7 @@ import { Jurl } from "../entities/jurl.entity";
 import { EntityManager } from "typeorm";
 import { User } from "../entities/user.entity";
 import ApiError from "../errors/api.error";
+import { errors } from "../errors/errors";
 
 export class JurlService {
   public async createAnonymousJurl(
@@ -105,7 +106,11 @@ export class JurlService {
     });
 
     if (alreadyExists) {
-      throw new ApiError("Custom URL already exists", 400);
+      throw new ApiError(
+        "Custom URL already exists",
+        400,
+        errors.ALREADY_EXISTS
+      );
     }
 
     const jurl = jurlRepo.create({
@@ -144,7 +149,7 @@ export class JurlService {
     });
 
     if (userId !== jurl.user.id) {
-      throw new ApiError("Unauthorized", 401);
+      throw new ApiError("Unauthorized", 401, errors.UNAUTHORIZED);
     }
 
     jurl.isActive = false;

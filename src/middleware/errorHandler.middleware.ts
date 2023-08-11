@@ -7,7 +7,7 @@ export async function errorHandler(ctx: Context, next: Next) {
     await next(); // Execute the downstream middleware first
   } catch (error) {
     // Handle the error here
-    // console.error("Error:", error);
+    console.error("Error:", error);
 
     // Set the status code based on the error type
     ctx.status = error.status || 500;
@@ -21,6 +21,17 @@ export async function errorHandler(ctx: Context, next: Next) {
         },
       };
     }
+    // if (error.name === )
+    // console.error(error.message);
+    if (error.errorCode === errors.INVALID_USERNAME_OR_PASSWORD) {
+      ctx.body = {
+        errorType: "InvalidUsernameOrPassword",
+        error: {
+          message: error.message || "Invalid Credentials",
+        },
+      };
+    }
+
     if (error.length > 0 && error[0] instanceof ValidationError) {
       ctx.body = {
         errorType: "ValidationError",
