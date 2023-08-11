@@ -16,8 +16,8 @@ export class Jurl {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ unique: true })
-  actualUrl: string;
+  @Column()
+  url: string;
 
   @Column({ unique: true })
   hashUrl: string;
