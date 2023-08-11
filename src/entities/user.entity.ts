@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Jurl } from "./jurl.entity";
 
 @Entity()
 export class User {
@@ -11,4 +18,7 @@ export class User {
 
   @Column()
   password: string;
+
+  @OneToMany(() => Jurl, (jurl) => jurl.user)
+  urls: Jurl[];
 }
