@@ -5,6 +5,7 @@ import Database from "../datasource";
 import CreateJurlDto from "../dtos/createJurl.dto";
 import { plainToClass } from "class-transformer";
 import { getUserIdFromCtx } from "../utils/utils";
+import { DeleteJurlDto } from "../dtos/deleteJurl.dto";
 
 class JurlController {
   private jurlService: JurlService = new JurlService();
@@ -62,6 +63,28 @@ class JurlController {
         userId,
         dto.url,
         dto.customUrl,
+        manager
+      );
+      ctx.body = jurl;
+    });
+  }
+
+  public async deleteUrl(ctx: Context) {
+    const dto = plainToClass(DeleteJurlDto, ctx.request.body);
+    const errors = await validate(dto);
+
+    if (errors.length > 0) {
+      ctx.status = 400;
+      ctx.body = errors;
+      return;
+    }
+
+    const userId = getUserIdFromCtx(ctx);
+
+    await Database.AppDataSource.manager.transaction(async (manager) => {
+      const jurl = await this.jurlService.deleteUrl(
+        userId,
+        dto.hashedUrl,
         manager
       );
       ctx.body = jurl;

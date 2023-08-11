@@ -130,4 +130,24 @@ export class JurlService {
 
     return jurl;
   }
+
+  public async deleteUrl(
+    userId: string,
+    hashedUrl: string,
+    manager: EntityManager = Database.AppDataSource.manager
+  ) {
+    const jurlRepo = manager.getRepository(Jurl);
+
+    const jurl = await jurlRepo.findOneOrFail({
+      where: { hashUrl: hashedUrl },
+      relations: ["user"],
+    });
+
+    if (userId !== jurl.user.id) {
+      throw new ApiError("Unauthorized", 401);
+    }
+
+    jurl.isActive = false;
+    await jurlRepo.save(jurl);
+  }
 }

@@ -14,7 +14,6 @@ import { User } from "./user.entity";
  * This entity is named "Jurl" for J-url, specifically I am sharing this database
  * with another project that uses the same database, so I am avoiding conflicting names
  */
-@Unique(["hashUrl", "isActive"])
 @Entity()
 export class Jurl {
   @PrimaryGeneratedColumn("uuid")
