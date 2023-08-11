@@ -33,7 +33,7 @@ export class JurlService {
     }
 
     const jurl = jurlRepo.create({
-      url,
+      url: standardizedUrl,
       hashUrl: hash,
     });
 
@@ -55,8 +55,24 @@ export class JurlService {
 
     const user = await userRepo.findOneOrFail({ where: { id: userId } });
 
+    let standardizedUrl = url;
+    if (!url.startsWith("https://")) {
+      standardizedUrl = "https://" + url;
+    }
+
+    const alreadyExists = await jurlRepo.findOne({
+      where: {
+        url: standardizedUrl,
+        user,
+      },
+    });
+
+    if (alreadyExists) {
+      return alreadyExists;
+    }
+
     const jurl = jurlRepo.create({
-      url,
+      url: standardizedUrl,
       hashUrl: hash,
       user,
     });
