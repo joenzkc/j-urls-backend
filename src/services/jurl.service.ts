@@ -80,7 +80,7 @@ export class JurlService {
     return await jurlRepo.save(jurl);
   }
 
-  public async getJurl(
+  public async getActualUrl(
     hashUrl: string,
     manager = Database.AppDataSource.manager
   ) {

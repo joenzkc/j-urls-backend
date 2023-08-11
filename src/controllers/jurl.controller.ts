@@ -38,6 +38,12 @@ class JurlController {
       ctx.body = jurl;
     });
   }
+
+  public async getActualUrl(ctx: Context) {
+    const jurl = ctx.params.jurl;
+    const actualUrl = await this.jurlService.getActualUrl(jurl);
+    ctx.body = actualUrl;
+  }
 }
 
 export default new JurlController();

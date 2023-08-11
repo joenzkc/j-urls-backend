@@ -2,6 +2,7 @@ import Router from "koa-router";
 import authRoute from "./auth.route";
 import userRoute from "./user.route";
 import jurlRoute from "./jurl.route";
+import jurlController from "../controllers/jurl.controller";
 
 const router = new Router();
 
@@ -14,6 +15,7 @@ router.get("/", async (ctx) => {
 
 router.get("/:hashUrl", async (ctx) => {
   // TODO: return the real url
+  await jurlController.getActualUrl(ctx);
 });
 
 export default router;
