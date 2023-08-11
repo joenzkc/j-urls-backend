@@ -4,7 +4,7 @@ import { validate } from "class-validator";
 import Database from "../datasource";
 import CreateJurlDto from "../dtos/createJurl.dto";
 import { plainToClass } from "class-transformer";
-import { getUserFromCtx } from "../utils/utils";
+import { getUserIdFromCtx } from "../utils/utils";
 
 class JurlController {
   private jurlService: JurlService = new JurlService();
@@ -32,13 +32,11 @@ class JurlController {
       ctx.body = errors;
       return;
     }
-    const userId = getUserFromCtx(ctx);
+    const userId = getUserIdFromCtx(ctx);
     await Database.AppDataSource.manager.transaction(async (manager) => {
       const jurl = await this.jurlService.createJurl(userId, dto.url, manager);
       ctx.body = jurl;
     });
-
-    // console.log(token);
   }
 }
 

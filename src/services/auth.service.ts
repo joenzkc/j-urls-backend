@@ -5,6 +5,7 @@ import { compare } from "bcrypt";
 import jwt from "jsonwebtoken";
 import ApiError from "../errors/api.error";
 import http from "http-status-codes";
+import moment from "moment";
 // import jwt from "koa-jwt";
 
 class AuthService {
@@ -18,7 +19,15 @@ class AuthService {
 
     const valid = await compare(password, user.password);
     if (valid) {
-      const token = jwt.sign(user.id, process.env.ACCESS_TOKEN_SECRET);
+      const payload = {
+        userId: user.id,
+        expiresIn: moment().add(30, "minute").toDate(),
+      };
+
+      const token = jwt.sign(
+        JSON.stringify(payload),
+        process.env.ACCESS_TOKEN_SECRET
+      );
       return token;
     } else {
       throw new ApiError("Invalid username or password", http.UNAUTHORIZED);

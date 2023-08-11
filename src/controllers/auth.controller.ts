@@ -19,6 +19,8 @@ class AuthController {
     const token = await this.authService.login(dto.username, dto.password);
     ctx.body = { token };
   }
+
+  public async logout(ctx: Context) {}
 }
 
 export default new AuthController();
