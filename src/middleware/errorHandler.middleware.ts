@@ -1,4 +1,5 @@
 import { Context, Next } from "koa";
+import { errors } from "../errors/errors";
 
 export async function errorHandler(ctx: Context, next: Next) {
   try {
@@ -11,10 +12,19 @@ export async function errorHandler(ctx: Context, next: Next) {
     ctx.status = error.status || 500;
 
     // Set the response body with the error message
-    ctx.body = {
-      error: {
-        message: error.message || "An error occurred",
-      },
-    };
+    if ((error.name as string) === errors.QUERY_FAILED) {
+      ctx.body = {
+        errorType: "QueryFailedError",
+        error: {
+          message: error.message || "An error occurred",
+        },
+      };
+    } else {
+      ctx.body = {
+        error: {
+          message: error.message || "An error occurred",
+        },
+      };
+    }
   }
 }
