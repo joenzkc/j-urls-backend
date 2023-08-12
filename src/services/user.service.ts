@@ -17,6 +17,14 @@ class UserService {
     // const repo = manager
   }
 
+  public async getUserById(
+    userId: string,
+    manager: EntityManager = Database.AppDataSource.manager
+  ) {
+    const userRepo = manager.getRepository(User);
+    return userRepo.findOneOrFail({ where: { id: userId } });
+  }
+
   public async getUsersUrls(
     userId: string,
     manager: EntityManager = Database.AppDataSource.manager

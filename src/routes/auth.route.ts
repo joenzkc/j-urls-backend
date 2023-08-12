@@ -7,4 +7,8 @@ router.post("/login", async (ctx) => {
   await authController.login(ctx);
 });
 
+router.post("/verifyToken", async (ctx) => {
+  await authController.verifyToken(ctx);
+});
+
 export default router.routes();

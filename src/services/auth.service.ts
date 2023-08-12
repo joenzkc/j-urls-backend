@@ -7,6 +7,7 @@ import ApiError from "../errors/api.error";
 import http from "http-status-codes";
 import moment from "moment";
 import { errors } from "../errors/errors";
+import { getUserIdFromCtx } from "../utils/utils";
 // import jwt from "koa-jwt";
 
 class AuthService {
