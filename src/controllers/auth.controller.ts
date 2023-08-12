@@ -7,6 +7,7 @@ import ApiError from "../errors/api.error";
 import { errors } from "../errors/errors";
 import { getUserIdFromCtx } from "../utils/utils";
 import UserService from "../services/user.service";
+import { SendUserDto } from "../dtos/sendUserDto";
 
 class AuthController {
   private authService: AuthService = new AuthService();
@@ -28,7 +29,8 @@ class AuthController {
     const userId = getUserIdFromCtx(ctx);
 
     const user = await this.userService.getUserById(userId);
-    ctx.body = { user };
+    delete user.password;
+    ctx.body = user;
   }
 
   public async logout(ctx: Context) {}
