@@ -5,6 +5,7 @@ import { EntityManager } from "typeorm";
 import { User } from "../entities/user.entity";
 import ApiError from "../errors/api.error";
 import { errors } from "../errors/errors";
+import qrcode from "qrcode";
 
 export class JurlService {
   public async createAnonymousJurl(
@@ -167,5 +168,21 @@ export class JurlService {
     });
 
     return jurls;
+  }
+
+  public async getUrlQr(id: string, manager = Database.AppDataSource.manager) {
+    const jurlRepo = manager.getRepository(Jurl);
+    const jurl = await jurlRepo.findOneOrFail({
+      where: {
+        id,
+      },
+    });
+
+    const pngBuffer = await qrcode.toBuffer(
+      process.env.FRONTEND_URL + jurl.hashUrl,
+      { width: 300 }
+    );
+
+    return pngBuffer;
   }
 }

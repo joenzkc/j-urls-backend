@@ -95,6 +95,14 @@ class JurlController {
     const urls = await this.jurlService.getAllHashedUrls();
     ctx.body = urls;
   }
+
+  public async getUrlQr(ctx: Context) {
+    const urlId = ctx.params.urlId;
+    const qr = await this.jurlService.getUrlQr(urlId);
+
+    ctx.type = "image/png";
+    ctx.body = qr;
+  }
 }
 
 export default new JurlController();

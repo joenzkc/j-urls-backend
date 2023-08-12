@@ -38,4 +38,8 @@ router.get("/all", async (ctx) => {
   await jurlController.getAllHashedUrls(ctx);
 });
 
+router.post("/getUrlQr/:urlId", async (ctx) => {
+  await jurlController.getUrlQr(ctx);
+});
+
 export default router.routes();
