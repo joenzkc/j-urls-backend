@@ -18,9 +18,13 @@ router.post(
   }
 );
 
-router.post("/createCustomUrl", async (ctx) => {
-  await jurlController.createCustomUrl(ctx);
-});
+router.post(
+  "/createCustomUrl",
+  jwt({ secret: process.env.ACCESS_TOKEN_SECRET }),
+  async (ctx) => {
+    await jurlController.createCustomUrl(ctx);
+  }
+);
 
 router.post(
   "/delete",

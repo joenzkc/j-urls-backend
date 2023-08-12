@@ -18,8 +18,6 @@ class UserController {
   public async getUsersUrls(ctx: Context) {
     const user = await getUserIdFromCtx(ctx);
     ctx.body = await this.userService.getUsersUrls(user);
-
-    // ctx.body = this.userService.getUsersUrls(user);
   }
 }
 
