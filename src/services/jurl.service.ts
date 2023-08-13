@@ -66,7 +66,9 @@ export class JurlService {
     const alreadyExists = await jurlRepo.findOne({
       where: {
         url: standardizedUrl,
-        user,
+        user: {
+          id: user.id,
+        },
       },
     });
 
