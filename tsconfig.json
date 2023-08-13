@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "lib": ["es5", "es6"],
     "esModuleInterop": true,
     "types": ["node", "jest"],
