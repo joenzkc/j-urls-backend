@@ -4,7 +4,7 @@
   "description": "Created for GDS DCUBE technical assessment",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest src/test",
     "dev": "nodemon src/index.ts",
     "build": "npm i && npm run migrate && tsc",
     "typeorm": "typeorm-ts-node-commonjs",
