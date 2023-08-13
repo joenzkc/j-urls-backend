@@ -30,9 +30,7 @@ export async function errorHandler(ctx: Context, next: Next) {
           message: error.message || "Invalid Credentials",
         },
       };
-    }
-
-    if (error.length > 0 && error[0] instanceof ValidationError) {
+    } else if (error.length > 0 && error[0] instanceof ValidationError) {
       ctx.body = {
         errorType: "ValidationError",
         error: error.map((err: ValidationError) => {
@@ -41,6 +39,13 @@ export async function errorHandler(ctx: Context, next: Next) {
             constraints: err.constraints,
           };
         }),
+      };
+    } else if (error.code === "23505") {
+      ctx.body = {
+        code: error.code,
+        error: {
+          message: error.detail,
+        },
       };
     } else {
       ctx.body = {
