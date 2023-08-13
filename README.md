@@ -15,4 +15,4 @@ git clone https://github.com/joenzkc/j-urls-backend.git
 4. Copy `.env.sample` and rename it `.env`, filling up the necessary details
 5. Run the command `npm run dev` to start the server
 
-More information can be found at the (frontend repo)[https://github.com/joenzkc/j-urls-frontend]
+More information can be found at the [frontend repo](https://github.com/joenzkc/j-urls-frontend)
