@@ -2,8 +2,11 @@ import { DataSource } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 import { join } from "path";
-
-export default class Database {
+import { config } from "dotenv";
+import { Jurl } from "./entities/jurl.entity";
+import { User } from "./entities/user.entity";
+config();
+export class Database {
   public static AppDataSource: DataSource;
 
   public static createPostgresDataSource(options: PostgresConnectionOptions) {
@@ -38,15 +41,18 @@ export default class Database {
 }
 
 // this is used for migrations
-export const MigrationDataSource = new DataSource({
+const MigrationDataSource = new DataSource({
   type: "postgres",
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT || "5432"),
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: ["entity/*.entity.ts"],
+  // entities: [join(__dirname, "/../**/**.entity{.ts,.js}")]
+  entities: [Jurl, User],
   namingStrategy: new SnakeNamingStrategy(),
 
   migrations: ["src/migration/*"],
 });
+
+export default MigrationDataSource;

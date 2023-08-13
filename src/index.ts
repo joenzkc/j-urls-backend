@@ -1,11 +1,11 @@
 import "reflect-metadata";
 import { config } from "dotenv";
 import Koa from "koa";
-import Database from "./datasource";
 import router from "./routes";
 import bodyParser from "koa-bodyparser";
 import { errorHandler } from "./middleware/errorHandler.middleware";
 import cors from "@koa/cors";
+import { Database } from "./datasource";
 
 config();
 

@@ -1,5 +1,5 @@
 import { EntityManager } from "typeorm";
-import Database from "../datasource";
+import { Database } from "../datasource";
 import { User } from "../entities/user.entity";
 import { compare } from "bcrypt";
 import jwt from "jsonwebtoken";

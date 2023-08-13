@@ -1,5 +1,5 @@
 import { randomBytes } from "crypto";
-import Database from "../datasource";
+import { Database } from "../datasource";
 import { Jurl } from "../entities/jurl.entity";
 import { EntityManager } from "typeorm";
 import { User } from "../entities/user.entity";

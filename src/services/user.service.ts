@@ -1,5 +1,5 @@
 import { EntityManager, Repository } from "typeorm";
-import Database from "../datasource";
+import { Database } from "../datasource";
 import { User } from "../entities/user.entity";
 import { hash } from "bcrypt";
 import { Jurl } from "../entities/jurl.entity";

@@ -1,7 +1,7 @@
 import { Context } from "koa";
 import { JurlService } from "../services/jurl.service";
 import { validate } from "class-validator";
-import Database from "../datasource";
+import { Database } from "../datasource";
 import CreateJurlDto from "../dtos/createJurl.dto";
 import { plainToClass } from "class-transformer";
 import { getUserIdFromCtx } from "../utils/utils";
