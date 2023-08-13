@@ -4,7 +4,18 @@ import ApiError from "../errors/api.error";
 import moment from "moment";
 import { plainToClass } from "class-transformer";
 import { errors } from "../errors/errors";
-import { JwtTokenDto } from "../dtos/jwtToken.dto";
+import { IsDateString, IsDefined, IsString } from "class-validator";
+// import { JwtTokenDto } from "../dtos/jwtToken.dto";
+
+export class JwtTokenDto {
+  @IsDefined()
+  @IsString()
+  userId: string;
+
+  @IsDefined()
+  @IsDateString()
+  expiresIn: string;
+}
 
 export function getUserIdFromCtx(ctx: Context) {
   let user = null;
