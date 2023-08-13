@@ -3,8 +3,8 @@ import { Context } from "vm";
 import ApiError from "../errors/api.error";
 import moment from "moment";
 import { plainToClass } from "class-transformer";
-import { JwtTokenDto } from "../dtos/jwtToken.dto";
 import { errors } from "../errors/errors";
+import { JwtTokenDto } from "../dtos/jwtToken.dto";
 
 export function getUserIdFromCtx(ctx: Context) {
   let user = null;
